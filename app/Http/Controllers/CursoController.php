@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Curso;
 use Illuminate\Http\Request;
+
+use App\Http\Requests\StoreCurso;
 
 class CursoController extends Controller
 {
     public function index(){
-        return view('cursos.index');
+
+        $cursos = Curso::OrderBy('id', 'desc')->paginate();
+        return view('cursos.index', compact('cursos'));
     }
 
     public function create(){
@@ -15,8 +20,55 @@ class CursoController extends Controller
 
     }
 
-    public function show($curso){
+    public function store(StoreCurso $request){
+
+        /*$curso = new Curso();
+
+        $curso->name = $request->name;
+        $curso->descripcion = $request->descripcion;
+        $curso->categoria = $request->categoria;
+
+        $curso->save(); */
+
+        $curso = Curso::create($request->all());
+        
+        return redirect()->route('cursos.show', $curso);
+    }
+
+    public function show(curso $curso){
+
         return view('cursos.show', compact('curso'));
+    }
+
+    public function edit(curso $curso){
+
+        return view('cursos.edit', compact('curso'));
+    }
+
+    public function update(Request $request, curso $curso){
+
+        //Validacion
+        $request->validate([
+            'name' => 'required',
+            'descripcion' => 'required',
+            'categoria' => 'required'
+        ]);
+
+        /*$curso->name = $request->name;
+        $curso->descripcion = $request->descripcion;
+        $curso->categoria = $request->categoria;
+
+        $curso->save();*/
+
+        $curso->update($request->all());
+
+        return redirect()->route('cursos.show', $curso->id);
+    }
+
+    public function destroy(Curso $curso){
+        $curso->delete();
+
+        return redirect()->route('cursos.index');
     }
 
     public function categoria($curso, $categoria = null){

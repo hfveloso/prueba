@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         //$this->call(CursoSeeder::class);
-        Curso::factory(50)->create();
+        Curso::factory(30)->create();
     }
 }
