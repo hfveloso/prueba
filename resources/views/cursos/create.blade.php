@@ -1,7 +1,7 @@
 @extends('layout.plantilla')
 
 @section('title', 'Crear')
-    
+
 @section('content')
 <h1>Crea un curso nuevo</h1>
 

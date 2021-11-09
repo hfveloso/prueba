@@ -15,11 +15,9 @@ use App\Http\Controllers\CursoController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', HomeController::class)->name('home');
 
-Route::get('curso', [CursoController::class, 'index'])->name('cursos.index');
+/*Route::get('curso', [CursoController::class, 'index'])->name('cursos.index');
 Route::get('curso/create', [CursoController::class, 'create'])->name('cursos.create');
 
 Route::post('curso', [CursoController::class, 'store'])->name('cursos.store');
@@ -29,4 +27,8 @@ Route::get('curso/{curso}/edit', [CursoController::class, 'edit'])->name('cursos
 
 Route::put('curso/{curso}', [CursoController::class, 'update'])->name('cursos.update');
 
-Route::delete('curso/{curso}', [CursoController::class, 'destroy'])->name('cursos.destroy');
+Route::delete('curso/{curso}', [CursoController::class, 'destroy'])->name('cursos.destroy');*/
+
+Route::resource('cursos', CursoController::class)->parameters('curso')->names('cursos');
+
+Route::view('otros', 'otros')->name('otros');

@@ -8,9 +8,16 @@
     <!--<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">-->
     <!--Favicon-->
     <!--Estilos-->
+    <style>
+        .active{
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <!--Header-->
+    @include('layout.partials.header')
     <!--nav-->
     @yield('content')
     <!--Footer-->
