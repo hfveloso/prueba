@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\ContactanosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CursoController;
+use App\Mail\ContactanosMailable;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +35,10 @@ Route::delete('curso/{curso}', [CursoController::class, 'destroy'])->name('curso
 Route::resource('cursos', CursoController::class)->parameters('curso')->names('cursos');
 
 Route::view('otros', 'otros')->name('otros');
+
+Route::get('contactanos', [ContactanosController::class, 'index'])->name('contactanos.index');
+Route::post('contactanos', [ContactanosController::class, 'store'])->name('contactanos.store');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
